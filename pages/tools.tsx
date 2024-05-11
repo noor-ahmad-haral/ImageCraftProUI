@@ -1,5 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
+import Header from "@/components/Header";
+
 
 interface Tool {
   title: string;
@@ -28,7 +30,9 @@ const tools: Tool[] = [
 
 const ToolsPage: React.FC = () => {
   return (
+     
     <div className="container mx-auto p-4">
+        
       <h1 className="text-4xl font-bold text-center mb-6">AI Photo Editing Tools & Features</h1>
       <p className="text-lg text-center mb-8">Create stunning images in seconds with AI-powered technology.</p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
+import Footer from "@/components/footer";
 import { title, subtitle } from "@/components/primitives";
 
 
@@ -42,9 +43,7 @@ export default function Home() {
         <Link href="/tools">Get Started</Link>
       </button>
       </div>
-      <section>
-        
-      </section>
+      <Footer/>  
     </main>
   );
 }
