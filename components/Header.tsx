@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+
 const Header = () => {
   return (
     <div className='w-full flex justify-between items-center p-6 md:px-8 lg:px-12 xl:px-16 text-white'>
