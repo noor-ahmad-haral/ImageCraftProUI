@@ -3,7 +3,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import Header from "@/components/Header";
 import Footer from "@/components/footer";
-import ImageComparison from "@/components/ImageComparison";
+// import ImageComparison from "@/components/ImageComparison";
 import { ClipLoader } from 'react-spinners';
 
 const SmartImageUpscaler: React.FC = () => {
