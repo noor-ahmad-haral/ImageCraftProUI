@@ -4,7 +4,7 @@ import axios from 'axios';
 import Header from "@/components/Header";
 import Footer from "@/components/footer";
 import ImageComparison from "@/components/ImageComparison";
-
+import { ClipLoader } from 'react-spinners';
 
 const SmartImageUpscaler: React.FC = () => {
   const [selectedUpscale, setSelectedUpscale] = useState<number>(2);
@@ -47,7 +47,7 @@ const SmartImageUpscaler: React.FC = () => {
       formData.append('file', selectedFile);
 
       try {
-        const response = await axios.post('http://localhost:8000/upscale/', formData, {
+        const response = await axios.post('http://localhost:8001/upscale/', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           },
@@ -147,7 +147,14 @@ const SmartImageUpscaler: React.FC = () => {
             </div>
             <div className="flex justify-center space-x-4 mt-8">
               <button className="px-6 py-2 font-bold rounded-full text-white text-base bg-indigo-500 hover:bg-indigo-600" onClick={handleStartAll}>
-                {processing ? 'Processing...' : 'Start All'}
+                {processing ? (
+                  <>
+                    <ClipLoader size={20} color={"#fff"} />
+                    <span className="ml-2">Processing...</span>
+                  </>
+                ) : (
+                  'Start All'
+                )}
               </button>
               <button className="px-6 py-2 font-bold rounded-full text-white text-base bg-rose-500 hover:bg-rose-600" onClick={handleRemoveAll}>
                 Remove All
@@ -173,13 +180,13 @@ const SmartImageUpscaler: React.FC = () => {
           </div>
         </div>
       </div>
-      
       <Footer />
     </div>
   );
 };
 
 export default SmartImageUpscaler;
+
 
 
 

@@ -1,7 +1,10 @@
+'use client'
 import Image from "next/image";
+import Layout from "../layouts/default";
 
 const About = () => {
   return (
+    <Layout>
     <main className="flex flex-col items-center justify-center min-h-screen p-6 md:p-24">
       <div className="mb-12">
         <h1 className="text-4xl md:text-6xl font-bold text-center text-gray-900 mb-4">About Us</h1>
@@ -48,6 +51,7 @@ const About = () => {
         </div>
       </div>
     </main>
+    </Layout>
   );
 };
 
