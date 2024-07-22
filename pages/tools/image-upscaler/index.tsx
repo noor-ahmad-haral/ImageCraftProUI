@@ -47,7 +47,7 @@ const SmartImageUpscaler: React.FC = () => {
       formData.append('file', selectedFile);
 
       try {
-        const response = await axios.post('http://localhost:8001/upscale/', formData, {
+        const response = await axios.post('http://localhost:8000/upscale/', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           },
