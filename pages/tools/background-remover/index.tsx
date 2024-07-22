@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import axios from 'axios';
+import Layout from '@/layouts/default';
 
 const BackgroundRemoverPage: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -40,9 +41,13 @@ const BackgroundRemoverPage: React.FC = () => {
         setError('Error in response data');
         console.error('Error in response data:', response.data);
       }
-    } catch (error) {
-      setError('Error uploading image');
-      console.error('Error uploading image:', error);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(err.message);
+      } else {
+        setError('Error uploading image');
+      }
+      console.error('Error uploading image:', err);
     } finally {
       setLoading(false);
     }
@@ -59,83 +64,95 @@ const BackgroundRemoverPage: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <Head>
-        <title>Background Remover</title>
-      </Head>
-      <div className="text-center p-8 bg-white shadow-lg rounded-lg max-w-2xl w-full">
-        <h1 className="text-5xl font-bold mb-4 text-gray-800">Background Remover</h1>
-        <p className="mb-6 text-gray-600">Erase image backgrounds for free and replace it with different backgrounds of your choosing.</p>
-        <div className="mb-4">
-          <label className="bg-purple-600 text-white px-6 py-2 rounded-md cursor-pointer hover:bg-purple-700 transition duration-300">
-            Start from a photo
-            <input type="file" className="hidden" onChange={handleImageChange} />
-          </label>
-        </div>
-        <p className="text-gray-600">Or drop an image here</p>
-        {image && (
-          <div className="mt-4">
-            <Image
-              src={URL.createObjectURL(image)}
-              alt="Uploaded Image"
-              width={200}
-              height={200}
-              className="mb-4 rounded-lg"
-            />
+    <Layout>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <Head>
+          <title>Background Remover</title>
+        </Head>
+        <div className="text-center p-8 bg-white shadow-lg rounded-lg max-w-2xl w-full">
+          <h1 className="text-5xl font-bold mb-4 text-gray-800">Background Remover</h1>
+          <p className="mb-6 text-gray-600">Erase image backgrounds for free and replace it with different backgrounds of your choosing.</p>
+          <div className="mb-4">
+            <label className="bg-purple-600 text-white px-6 py-2 rounded-md cursor-pointer hover:bg-purple-700 transition duration-300">
+              Start from a photo
+              <input type="file" className="hidden" onChange={handleImageChange} />
+            </label>
           </div>
-        )}
-        <button
-          onClick={handleImageUpload}
-          className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300"
-        >
-          {loading ? 'Processing...' : 'Remove Background'}
-        </button>
-        {error && (
-          <div className="mt-4 text-red-500">
-            <p>{error}</p>
-          </div>
-        )}
-        {processedImage && (
-          <div className="mt-4">
-            <h2 className="text-2xl font-bold mb-2 text-gray-800">Processed Image</h2>
-            <div className="flex justify-center items-center mb-4">
-              <button
-                onClick={() => setShowBefore(!showBefore)}
-                className="bg-gray-500 text-white px-2 py-1 rounded mr-2"
-              >
-                {showBefore ? 'After' : 'Before'}
-              </button>
-              <div className="flex space-x-2">
-                {backgroundColors.map((color, index) => (
-                  <button
-                    key={index}
-                    className={`${color} w-8 h-8 rounded-full border-2 ${background === color ? 'border-black' : 'border-transparent'}`}
-                    onClick={() => setBackground(color)}
-                  ></button>
-                ))}
-              </div>
-            </div>
-            <div className={`relative ${background} p-4 rounded-lg`}>
+          <p className="text-gray-600">Or drop an image here</p>
+          {image && (
+            <div className="mt-4">
               <Image
-                src={showBefore ? URL.createObjectURL(image) : processedImage}
-                alt="Processed Image"
-                width={400}
-                height={400}
-                className="rounded-lg"
+                src={URL.createObjectURL(image)}
+                alt="Uploaded Image"
+                width={200}
+                height={200}
+                className="mb-4 rounded-lg"
               />
             </div>
-            <div className="mt-4 flex justify-center space-x-4">
-              <button className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-300">
-                Edit for free
-              </button>
-              <button className="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition duration-300">
-                Download
-              </button>
+          )}
+          <button
+            onClick={handleImageUpload}
+            className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+          >
+            {loading ? 'Processing...' : 'Remove Background'}
+          </button>
+          {error && (
+            <div className="mt-4 text-red-500">
+              <p>{error}</p>
             </div>
-          </div>
-        )}
+          )}
+          {processedImage && (
+            <div className="mt-4">
+              <h2 className="text-2xl font-bold mb-2 text-gray-800">Processed Image</h2>
+              <div className="flex justify-center items-center mb-4">
+                <button
+                  onClick={() => setShowBefore(!showBefore)}
+                  className="bg-gray-500 text-white px-2 py-1 rounded mr-2"
+                >
+                  {showBefore ? 'After' : 'Before'}
+                </button>
+                <div className="flex space-x-2">
+                  {backgroundColors.map((color, index) => (
+                    <button
+                      key={index}
+                      className={`${color} w-8 h-8 rounded-full border-2 ${background === color ? 'border-black' : 'border-transparent'}`}
+                      onClick={() => setBackground(color)}
+                    ></button>
+                  ))}
+                </div>
+              </div>
+              <div className={`relative ${background} p-4 rounded-lg`}>
+                {showBefore && image ? (
+                  <Image
+                    src={URL.createObjectURL(image)}
+                    alt="Original Image"
+                    width={400}
+                    height={400}
+                    className="rounded-lg"
+                  />
+                ) : (
+                  <Image
+                    src={processedImage}
+                    alt="Processed Image"
+                    width={400}
+                    height={400}
+                    className="rounded-lg"
+                  />
+                )}
+              </div>
+              <div className="mt-4 flex justify-center space-x-4">
+                <button className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-300">
+                  Edit for free
+                </button>
+                <button className="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition duration-300">
+                  Download
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
