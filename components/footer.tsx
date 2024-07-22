@@ -14,6 +14,7 @@ type Navigation = {
   social: NavigationItem[];
 };
 
+
 const navigation: Navigation = {
   solutions: [
     { name: 'Marketing', href: '#' },
@@ -104,104 +105,85 @@ const navigation: Navigation = {
   ],
 };
 
-const ContactItems = [
-  {
-    name: 'Collaborate',
-    email: 'collaborate@example.com',
-    phone: '+1 (555) 905-2345'
-  },
-  {
-    name: 'Press',
-    email: 'press@example.com',
-    phone: '+1 (555) 905-3456'
-  },
-  {
-    name: 'Join our team',
-    email: 'careers@example.com',
-    phone: '+1 (555) 905-4567'
-  },
-  {
-    name: 'Say hello',
-    email: 'hello@example.com',
-    phone: '+1 (555) 905-5678'
-  }
-];
-
-const Locations = [
-  {
-    city: 'Los Angeles',
-    address: ['4556 Brendan Ferry', 'Los Angeles, CA 90210']
-  },
-  {
-    city: 'New York',
-    address: ['886 Walter Street', 'New York, NY 12345']
-  },
-  {
-    city: 'Toronto',
-    address: ['7363 Cynthia Pass', 'Toronto, ON N3Y 4H8']
-  },
-  {
-    city: 'Chicago',
-    address: ['726 Mavis Island', 'Chicago, IL 60601']
-  }
-];
-
-export default function Example() {
+export default function Footer() {
   return (
-    <div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl space-y-16 divide-y divide-gray-100 lg:mx-0 lg:max-w-none">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900">Get in touch</h2>
-              <p className="mt-4 leading-7 text-gray-600">
-                Quam nunc nunc eu sed. Sed rhoncus quis ultricies ac pellentesque.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8">
-              {ContactItems.map((item) => (
-                <div key={item.name} className="rounded-2xl bg-gray-50 p-10">
-                  <h3 className="text-base font-semibold leading-7 text-gray-900">{item.name}</h3>
-                  <dl className="mt-3 space-y-1 text-sm leading-6 text-gray-600">
-                    <div>
-                      <dt className="sr-only">Email</dt>
-                      <dd>
-                        <a href={`mailto:${item.email}`} className="font-semibold text-indigo-600">
-                          {item.email}
-                        </a>
-                      </dd>
-                    </div>
-                    <div className="mt-1">
-                      <dt className="sr-only">Phone number</dt>
-                      <dd>{item.phone}</dd>
-                    </div>
-                  </dl>
-                </div>
+    <footer aria-labelledby="footer-heading" className="bg-gray-900 text-white p-8">
+      <h2 id="footer-heading" className="sr-only">
+        Footer
+      </h2>
+      <div className="container mx-auto px-6 py-4">
+        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+          <div className="space-y-8">
+            <img
+              alt="Company name"
+              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+              className="h-7"
+            />
+            <p className="text-sm leading-6 text-gray-300">
+              Making the world a better place through constructing elegant hierarchies.
+            </p>
+            {/* <div className="flex space-x-6">
+              {navigation.social.map((item) => (
+                <a key={item.name} href={item.href} className="text-gray-500 hover:text-gray-400">
+                  <span className="sr-only">{item.name}</span>
+                  <item.icon aria-hidden="true" className="h-6 w-6" />
+                </a>
               ))}
-            </div>
+            </div> */}
           </div>
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 pt-16 lg:grid-cols-3">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900">Locations</h2>
-              <p className="mt-4 leading-7 text-gray-600">
-                Consequat sunt cillum cillum elit sint. Qui occaecat nisi in ipsum commodo.
-              </p>
+          <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+            <div className="md:grid md:grid-cols-2 md:gap-8">
+              <div>
+                <h3 className="text-sm font-semibold leading-6">Free tools</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  <li className="mb-1">All AI tools</li>
+                  <li className="mb-1">AI Backgrounds</li>
+                  <li className="mb-1">AI Shadows</li>
+                  <li className="mb-1">AI Expand <span className="text-xs bg-red-500 px-2 py-1 rounded-full text-white">New</span></li>
+                </ul>
+              </div>
+              <div className="mt-10 md:mt-0">
+                <h3 className="text-sm font-semibold leading-6">Free apps</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  <li className="mb-1">On the web</li>
+                  <li className="mb-1">iPhone app</li>
+                  <li className="mb-1">Android app</li>
+                  <li className="mb-1">API (developers)</li>
+                </ul>
+              </div>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8">
-              {Locations.map((location) => (
-                <div key={location.city} className="rounded-2xl bg-gray-50 p-10">
-                  <h3 className="text-base font-semibold leading-7 text-gray-900">{location.city}</h3>
-                  <address className="mt-3 space-y-1 text-sm not-italic leading-6 text-gray-600">
-                    {location.address.map((line) => (
-                      <p key={line}>{line}</p>
-                    ))}
-                  </address>
-                </div>
-              ))}
+            <div className="md:grid md:grid-cols-2 md:gap-8">
+              <div>
+                <h3 className="text-sm font-semibold leading-6">Company</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  {navigation.company.map((item) => (
+                    <li key={item.name}>
+                      <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
+                        {item.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-10 md:mt-0">
+                <h3 className="text-sm font-semibold leading-6">Help & legal</h3>
+                <ul role="list" className="mt-6 space-y-4">
+                  {navigation.legal.map((item) => (
+                    <li key={item.name}>
+                      <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
+                        {item.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
+        <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
+          <p className="text-xs leading-5 text-gray-400">&copy; 2020 Your Company, Inc. All rights reserved.</p>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 }
